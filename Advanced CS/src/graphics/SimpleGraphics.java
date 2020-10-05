@@ -76,8 +76,9 @@ public class SimpleGraphics extends JPanel  {
 		// also note that I use magic numbers here, just 
 		// because its an example - do not do this in a real project!
 		g.setColor(Color.RED);
-		g.fillRect(100, 100, 50, 50);
 		
+		
+		g.fillRect(100, 100, 50, 50);
 		
 		
 		
