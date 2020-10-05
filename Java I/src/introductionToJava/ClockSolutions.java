@@ -1,4 +1,4 @@
-package conditionals;
+package introductionToJava;
 public class ClockSolutions {
 	private int minutes;
 	
