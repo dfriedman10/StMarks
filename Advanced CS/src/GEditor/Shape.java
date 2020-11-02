@@ -2,6 +2,7 @@ package GEditor;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 public abstract class Shape {
 
@@ -23,4 +24,5 @@ public abstract class Shape {
 	public abstract void draw(Graphics g);
 	public abstract boolean isOn(int x, int y);
 	public abstract void resize(int x1, int y1, int x2, int y2);
+	
 }

@@ -111,5 +111,7 @@ public class Adventure_Ugly {
 				System.out.println("Not a valid input");
 			}
 		}
+		
+		input.close();
 	}
 }
