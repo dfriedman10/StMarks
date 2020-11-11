@@ -99,6 +99,7 @@ public class War {
 					p2.add(card);
 			}
 		}
+		in.close();
 	}
 	
 	public static void main(String[] args) {
