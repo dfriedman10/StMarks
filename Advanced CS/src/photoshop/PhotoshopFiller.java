@@ -31,6 +31,15 @@ public class PhotoshopFiller extends Component {
     // don't forget that rgb values are limited to the range [0,255]
     public void brighten(int amount) {
         outputName = "brightened_" + outputName;
+        
+        for (int i = 0; i < pixels.length; i++) {
+        	for (int j = 0; j < pixels[i].length; j++) {
+        		Color c = pixels[i][j];
+        		
+        		pixels[i][j] = new Color(Math.min(c.getRed()+amount, 300), Math.min(c.getGreen()+amount, 255), Math.min(255, c.getBlue()+amount));
+        		
+        	}
+        }
 
         // your code here (copy/paste it from your homework!)
     }
@@ -102,7 +111,7 @@ public class PhotoshopFiller extends Component {
     
     
 
-    public void run() throws IOException {
+    public void run() {
     	JFileChooser fc = new JFileChooser();
 		File workingDirectory = new File(System.getProperty("user.dir")+System.getProperty("file.separator")+ "Images");
 		fc.setCurrentDirectory(workingDirectory);
@@ -112,52 +121,60 @@ public class PhotoshopFiller extends Component {
 			System.exit(-1);
 		
 		// reads the image file and creates our 2d array
-        BufferedImage image = ImageIO.read(my_file);
-        BufferedImage new_image = new BufferedImage(image.getWidth(),
-                        image.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        create_pixel_array(image);
-		outputName = my_file.getName();
+        BufferedImage image;
+		try {
+			image = ImageIO.read(my_file);
 		
-		// runs the manipulations determined by the user
-		System.out.println("Enter the manipulations you would like to run on the image.\nYour "
-				+ "choices are: brighten, flip, negate, blur, edge, or simplify.\nEnter each "
-				+ "manipulation you'd like to run, then type in 'done'.");
-		Scanner in = new Scanner(System.in);
-		String action = in.next().toLowerCase();
-		while (!action.equals("done")) {
-    			try {
-	    			if (action.equals("brighten")) {
-	    				System.out.println("enter an amount to increase the brightness by");
-	    				int brightness = in.nextInt();
-	        			Method m = getClass().getDeclaredMethod(action, int.class);
-	        			m.invoke(this, brightness);
+	        BufferedImage new_image = new BufferedImage(image.getWidth(),
+	                        image.getHeight(), BufferedImage.TYPE_INT_ARGB);
+	        create_pixel_array(image);
+			outputName = my_file.getName();
+			
+			// runs the manipulations determined by the user
+			System.out.println("Enter the manipulations you would like to run on the image.\nYour "
+					+ "choices are: brighten, flip, negate, blur, edge, or simplify.\nEnter each "
+					+ "manipulation you'd like to run, then type in 'done'.");
+			Scanner in = new Scanner(System.in);
+			String action = in.next().toLowerCase();
+			while (!action.equals("done")) {
+	    			try {
+		    			if (action.equals("brighten")) {
+		    				System.out.println("enter an amount to increase the brightness by");
+		    				int brightness = in.nextInt();
+		        			Method m = getClass().getDeclaredMethod(action, int.class);
+		        			m.invoke(this, brightness);
+		    			}
+		    			else if (action.equals("flip")) {
+		    				System.out.println("enter \"h\" to flip horizontally, anything else to flip vertically.");
+		        			Method m = getClass().getDeclaredMethod(action, boolean.class);
+		        			m.invoke(this, in.next().equals("h"));
+		    			}
+		    			else {
+		        			Method m = getClass().getDeclaredMethod(action);
+		        			m.invoke(this, new Object[0]);
+		    			}
+		    			System.out.println("done. enter another action, or type 'done'");
 	    			}
-	    			else if (action.equals("flip")) {
-	    				System.out.println("enter \"h\" to flip horizontally, anything else to flip vertically.");
-	        			Method m = getClass().getDeclaredMethod(action, boolean.class);
-	        			m.invoke(this, in.next().equals("h"));
-	    			}
-	    			else {
-	        			Method m = getClass().getDeclaredMethod(action);
-	        			m.invoke(this, new Object[0]);
-	    			}
-	    			System.out.println("done. enter another action, or type 'done'");
-    			}
-    			catch (NoSuchMethodException e) {
-    				System.out.println("not a valid action, try again");
-    			} catch (IllegalAccessException e) {} 
-    			catch (IllegalArgumentException e) {}
-    			catch (InvocationTargetException e) {}
-    			
-    			action = in.next().toLowerCase();
-    		} 
-        in.close();
-        
-        // turns our 2d array of colors into a new png file
-        create_new_image(new_image);
-        File output_file = new File("Images/" + outputName);
-        ImageIO.write(new_image, "png", output_file);
+	    			catch (NoSuchMethodException e) {
+	    				System.out.println("not a valid action, try again");
+	    			} catch (IllegalAccessException e) {e.printStackTrace();System.exit(1);} 
+	    			catch (IllegalArgumentException e) {e.printStackTrace();System.exit(1);}
+	    			catch (InvocationTargetException e) {e.printStackTrace();System.exit(1);}
+	    			
+	    			action = in.next().toLowerCase();
+	    		} 
+	        in.close();
+	        
+	        // turns our 2d array of colors into a new png file
+	        create_new_image(new_image);
+	        File output_file = new File("Images/" + outputName);
+	        ImageIO.write(new_image, "png", output_file);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     }
+		
     
     public void create_pixel_array(BufferedImage image) {
         w = image.getWidth();
@@ -184,9 +201,6 @@ public class PhotoshopFiller extends Component {
 	}
 
     public PhotoshopFiller() {
-        try {
-			run();
-		} catch (IOException e) {
-			System.out.println("Image does not exist :(");}
+		run();
     }
 }
