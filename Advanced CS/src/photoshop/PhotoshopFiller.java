@@ -31,15 +31,6 @@ public class PhotoshopFiller extends Component {
     // don't forget that rgb values are limited to the range [0,255]
     public void brighten(int amount) {
         outputName = "brightened_" + outputName;
-        
-        for (int i = 0; i < pixels.length; i++) {
-        	for (int j = 0; j < pixels[i].length; j++) {
-        		Color c = pixels[i][j];
-        		
-        		pixels[i][j] = new Color(Math.min(c.getRed()+amount, 300), Math.min(c.getGreen()+amount, 255), Math.min(255, c.getBlue()+amount));
-        		
-        	}
-        }
 
         // your code here (copy/paste it from your homework!)
     }
