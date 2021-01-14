@@ -38,7 +38,7 @@ public class Graph<E> {
 	}
 	
 	
-	public void BFS(E start, E target) {
+	public ArrayList<E> BFS(E start, E target) {
 		
 		ArrayList<Vertex> toVisit = new ArrayList<Vertex>();
 		toVisit.add(vertices.get(start));
@@ -55,19 +55,34 @@ public class Graph<E> {
 				
 				if (visited.contains(neighbor)) continue;
 				
+
+				leadsTo.put(neighbor, curr);
+				
 				if (neighbor.info.equals(target)) {
 					
-					//backTrace(target, start, leadsTo);
-					return;
+					return backtrace(neighbor, leadsTo);
 				}
 				
 				else {
 					toVisit.add(neighbor);
 					visited.add(neighbor);
-					leadsTo.put(neighbor, curr);
 				}
 			}
 		}
+		return null;
+	}
+	
+	public ArrayList<E> backtrace(Vertex target, HashMap<Vertex, Vertex> leadsTo) {
+		
+		Vertex curr = target;
+		ArrayList<E> path = new ArrayList<E>();
+		
+		while (curr != null) {
+			path.add(0, curr.info);
+			curr = leadsTo.get(curr);
+		}
+		return path;
+		
 	}
 	
 	public static void main(String[] args) {
@@ -79,12 +94,13 @@ public class Graph<E> {
 		g.addVertex("Felicity");
 		g.addVertex("Andria");
 		g.addVertex("Elgin");
+		g.addVertex("David");
 		
 		g.connect("Reina","Veronika");
 		g.connect("Reina", "Felicity");
 		g.connect("Felicity", "Andria");
 		g.connect("Felicity", "Elgin");
 		
-		g.BFS("Reina", "Elgin");
+		g.BFS("Reina", "David");
 	}
 }
