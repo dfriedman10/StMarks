@@ -3,11 +3,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Graph<E> {
+public class LabeledGraph<E> {
 	
 	HashMap<E, Vertex> vertices;
 	
-	public Graph() {
+	public LabeledGraph() {
 		vertices = new HashMap<E, Vertex>();
 	}
 	
@@ -87,20 +87,7 @@ public class Graph<E> {
 	
 	public static void main(String[] args) {
 		
-		Graph<String> g = new Graph<String>();
+		LabeledGraph<String> g = new LabeledGraph<String>();
 		
-		g.addVertex("Reina");
-		g.addVertex("Veronika");
-		g.addVertex("Felicity");
-		g.addVertex("Andria");
-		g.addVertex("Elgin");
-		g.addVertex("David");
-		
-		g.connect("Reina","Veronika");
-		g.connect("Reina", "Felicity");
-		g.connect("Felicity", "Andria");
-		g.connect("Felicity", "Elgin");
-		
-		g.BFS("Reina", "David");
 	}
 }
