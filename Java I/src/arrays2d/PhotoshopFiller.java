@@ -1,4 +1,4 @@
-package photoshop;
+package arrays2d;
 // Photoshop program that can run several manipulations on 
 // an image
 // filler code by Mr. David
@@ -34,13 +34,13 @@ public class PhotoshopFiller extends Component {
     // don't forget that rgb values are limited to the range [0,255]
     public void brighten(int amount) {
         outputName = "brightened_" + outputName;
-
-        // your code here (copy/paste it from your homework!)
+        
+        // your code here
     }
     
     // flip an image either horizontally or vertically.
     public void flip(boolean horizontally) {
-        outputName = "flipped_" + outputName;
+        outputName = (horizontally?"h":"v") + "_flipped_" + outputName;
         
         // your code here
     }

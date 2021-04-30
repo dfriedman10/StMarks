@@ -3,9 +3,13 @@ package arrays;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -33,15 +37,14 @@ public class AngryBirdsFiller extends JPanel {
 
 	// you'll need more instance variables - put them here.
 	
-	
-	
 	// this method is for setting up any arrays that need filling in and loading images. 
 	// This method will run once at the start of the game.
 	public void setup() {
 
 		// example of loading an image file - edit to suit your project
 		try {
-			exampleImg = ImageIO.read(new File("bball.png"));
+			exampleImg = ImageIO.read(new File("bball.jpg"));
+			BufferedImage x = ImageIO.read(new File("bball.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -70,6 +73,7 @@ public class AngryBirdsFiller extends JPanel {
 	
 	// what you want to happen when the mouse button is released
 	public void mouseReleased(int mouseX, int mouseY) {
+		
 		// your code here
 	}
 	
@@ -81,9 +85,7 @@ public class AngryBirdsFiller extends JPanel {
 		g.fillRect(0, 0, W_WIDTH, W_HEIGHT);
 		
 		// example of how to draw an image - draws at (100, 100) with width/height of 40/40
-		g.drawImage(exampleImg, 100,100, 40, 40, null);
-		
-		// your code here
+		g.drawImage(exampleImg, 100,100, 40, 40, null);// your code here
 	}
 	
 	

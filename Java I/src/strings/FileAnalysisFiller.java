@@ -22,7 +22,7 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class FileAnalysis {
+public class FileAnalysisFiller {
 	private final int WIDTH = 600, HEIGHT = 600;
 	private String content;
 	
