@@ -7,6 +7,8 @@ public class Searching {
 	public static int binarySearch(ArrayList<Integer> nums, int target, 
 			int startI, int endI) {
 		
+		System.out.println(startI + " " + endI);
+		
 		int midpoint = (startI + endI)/2;
 		
 		int value = nums.get(midpoint);
@@ -15,7 +17,7 @@ public class Searching {
 			return midpoint;
 		}
 		
-		else if (value < target) {
+		else if (target < value) {
 			return binarySearch(nums, target, startI, midpoint-1);
 		}
 		
@@ -39,7 +41,7 @@ public class Searching {
 		nums.add(15);
 		
 		
-		System.out.println(binarySearch(nums, 15, 0, nums.size()-1));
+		System.out.println(binarySearch(nums, 9, 0, nums.size()-1));
 		
 	}
 }
